@@ -1,0 +1,12 @@
+--- gdb-6.8/gdb/tui/tui-io.c.bak	2012-05-31 17:19:50.459340398 -0700
++++ gdb-6.8/gdb/tui/tui-io.c	2012-05-31 17:23:18.136735288 -0700
+@@ -131,6 +131,9 @@
+ static VFunction *tui_old_rl_redisplay_function;
+ static VFunction *tui_old_rl_prep_terminal;
+ static VFunction *tui_old_rl_deprep_terminal;
++#if RL_VERSION_MAJOR >= 6
++#define readline_echoing_p _rl_echoing_p
++#endif
+ static int tui_old_readline_echoing_p;
+ 
+ /* Readline output stream.
