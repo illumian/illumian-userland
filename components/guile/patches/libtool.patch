@@ -1,0 +1,11 @@
+--- guile-1.8.4/libguile/guile.c.bak	2012-05-31 18:54:25.206916404 -0700
++++ guile-1.8.4/libguile/guile.c	2012-05-31 18:55:09.265292007 -0700
+@@ -66,7 +66,7 @@
+ int
+ main (int argc, char **argv)
+ {
+-#if !defined (__MINGW32__)
++#if !defined (__MINGW32__) && !defined (__sun)
+   /* libtool automagically inserts this variable into your executable... */
+   extern const lt_dlsymlist lt_preloaded_symbols[];
+   lt_dlpreload_default (lt_preloaded_symbols);
