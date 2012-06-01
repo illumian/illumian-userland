@@ -19,6 +19,7 @@
 # CDDL HEADER END
 
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -37,6 +38,8 @@ include ../../make-rules/ips.mk
 
 # remove the unwanted file.
 COMPONENT_PREP_ACTION = rm -f $(SOURCE_DIR)/match.S
+
+COMPONENT_BUILD_ARGS += CC="$(CC)"
 
 # The Makefile we want is under unix/Makefile
 COMPONENT_BUILD_ARGS += -f unix/Makefile
