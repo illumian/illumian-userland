@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 include ../../make-rules/shared-macros.mk
@@ -55,7 +56,7 @@ CONFIGURE_OPTIONS  +=           --disable-rpath
 CONFIGURE_OPTIONS  +=           --with-x
 CONFIGURE_OPTIONS  +=           --with-pic
 
-COMPONENT_PREP_ACTION = (cd $(@D) ; autoconf)
+COMPONENT_PREP_ACTION = (cd $(@D) ; autoconf; libtoolize -c -f)
 
 build: $(BUILD_32_and_64)
 
