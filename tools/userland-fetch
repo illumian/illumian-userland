@@ -19,6 +19,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2010, 2011, Oracle and/or its affiliates. All rights reserved.
 #
 #
@@ -52,7 +53,7 @@ def validate(file, hash):
 
 	while True:
 		try:
-			block = file.read()
+			block = file.read(m.block_size)
 		except IOError, err:
 			print str(err),
 			break
