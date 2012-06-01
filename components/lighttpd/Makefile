@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -40,8 +41,10 @@ include ../../make-rules/ips.mk
 
 PATCH_LEVEL=0
 
-# libtool linking will fail unless we re-create configure.
-COMPONENT_PREP_ACTION = ( cd $(@D) ; $(CONFIG_SHELL) autogen.sh )
+# libtool passes -z defs when linking which is a bit severe in this case,
+# we drop it in favor of -z text.
+COMPONENT_PREP_ACTION = ( cd $(@D) ; \
+	sed -i "s/no_undefined_flag=' -z defs'/no_undefined_flag=' -z text'/g" configure)
 
 # lighttpd is logging using __FILE__ macro. Cloning will make this happen
 # using just source file names (without full absolute paths).
