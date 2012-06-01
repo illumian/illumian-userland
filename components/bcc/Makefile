@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -41,7 +42,7 @@ COMPILER=gcc
 COMPONENT_PRE_CONFIGURE_ACTION = ($(CLONEY) $(SOURCE_DIR) $(@D))
 
 # Create the Makefile before we build
-COMPONENT_PRE_BUILD_ACTION = (cd $(@D) ; $(GMAKE) make.fil)
+COMPONENT_PRE_BUILD_ACTION = (cd $(@D) ; $(GMAKE) make.fil CC="$(CC)")
 # build with the created Makefile (make.fil)
 COMPONENT_BUILD_ARGS = -f make.fil
 COMPONENT_BUILD_ARGS += PATH="$(@D)/bin:$(PATH)"
