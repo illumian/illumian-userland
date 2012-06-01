@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -39,7 +40,7 @@ include ../../make-rules/ips.mk
 
 # The version of libtool in the source archive causes the build to fail to
 # link in src/plugins/lan.  The bundled vesion works fine.
-COMPONENT_PREP_ACTION=(cd $(@D) ; libtoolize -f)
+COMPONENT_PREP_ACTION=(cd $(@D) ; libtoolize -f ; $(ACLOCAL))
 
 COMPILER=gcc
 
