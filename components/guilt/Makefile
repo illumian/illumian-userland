@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright 2011 Josef 'Jeff' Sipek <jeffpc@josefsipek.net>
 #
 include ../../make-rules/shared-macros.mk
@@ -25,9 +26,9 @@ include ../../make-rules/shared-macros.mk
 COMPONENT_NAME=		guilt
 COMPONENT_VERSION=	0.35
 COMPONENT_SRC=		$(COMPONENT_NAME)-$(COMPONENT_VERSION)
-COMPONENT_ARCHIVE=	$(COMPONENT_SRC).tar.bz2
-COMPONENT_ARCHIVE_HASH=	sha1:054667522de9083ca8e93a3fae232de65e235813
-COMPONENT_ARCHIVE_URL=	http://www.kernel.org/pub/linux/kernel/people/jsipek/guilt/$(COMPONENT_ARCHIVE)
+COMPONENT_ARCHIVE=	$(COMPONENT_SRC).tar.gz
+COMPONENT_ARCHIVE_HASH=	sha1:e722180bc100afc096a1bd5c8338f797268c9947
+COMPONENT_ARCHIVE_URL=	http://mirror.sit.wisc.edu/pub/linux/kernel/people/jsipek/guilt/$(COMPONENT_ARCHIVE)
 
 include ../../make-rules/prep.mk
 include ../../make-rules/justmake.mk
