@@ -19,6 +19,7 @@
 # CDDL HEADER END
 
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -44,6 +45,7 @@ COMPONENT_BUILD_ENV += \
 
 # The Makefile we want is under unix/Makefile
 COMPONENT_BUILD_ARGS += -f unix/Makefile
+COMPONENT_BUILD_ARGS += CC="$(CC)"
 COMPONENT_BUILD_TARGETS += generic
 COMPONENT_INSTALL_ARGS += -f unix/Makefile
 
