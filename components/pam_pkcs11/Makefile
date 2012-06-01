@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 include ../../make-rules/shared-macros.mk
@@ -34,6 +35,7 @@ include ../../make-rules/configure.mk
 include ../../make-rules/ips.mk
 
 CONFIGURE_OPTIONS +=	CFLAGS="$(CFLAGS)"
+CONFIGURE_OPTIONS +=	LIBS="-lsocket -lnsl"
 CONFIGURE_OPTIONS += --with-pcsclite=no
 CONFIGURE_OPTIONS += --with-included-gettext=yes
 CONFIGURE_OPTIONS += --localstatedir=/var
