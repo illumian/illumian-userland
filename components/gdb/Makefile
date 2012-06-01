@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -31,6 +32,9 @@ COMPONENT_SRC=		$(COMPONENT_NAME)-$(COMPONENT_VERSION)
 COMPONENT_ARCHIVE=	$(COMPONENT_SRC).tar.gz
 COMPONENT_ARCHIVE_HASH=	sha1:15e67382c39640caafa144abf2c8943106aa97d9
 COMPONENT_ARCHIVE_URL=	http://ftp.gnu.org/gnu/gdb/$(COMPONENT_ARCHIVE)
+
+# GDB doesn't understand x86_64-pc-solaris2.* yet
+CONFIGURE_DEFAULT_HOST = no
 
 include ../../make-rules/prep.mk
 include ../../make-rules/configure.mk
