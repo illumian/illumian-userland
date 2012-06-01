@@ -305,9 +305,9 @@ PKGREPO =	/usr/bin/pkgrepo
 PKGSEND =	/usr/bin/pkgsend
 PKGLINT =	/usr/bin/pkglint
 
-ACLOCAL =	/usr/bin/aclocal-1.10
-AUTOMAKE =	/usr/bin/automake-1.10
-AUTORECONF = 	/usr/bin/autoreconf
+export ACLOCAL =	/usr/bin/aclocal-1.10
+export AUTOMAKE =	/usr/bin/automake-1.10
+export AUTORECONF = 	/usr/bin/autoreconf
 
 KSH93 =         /usr/bin/ksh93
 TOUCH =		/usr/bin/touch
