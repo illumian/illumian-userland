@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -102,8 +103,8 @@ CONFIGURE_OPTIONS += --with-apxs=/usr/apache2/2.2/bin/apxs
 CONFIGURE_OPTIONS += --with-ssl 
 CONFIGURE_OPTIONS += --with-zlib=$(CONFIGURE_PREFIX)
 CONFIGURE_OPTIONS += --with-jdk=$(JAVA_ROOT)
-CONFIGURE_OPTIONS += --with-apr=/usr/apr/1.3
-CONFIGURE_OPTIONS += --with-apr-util=/usr/apr-util/1.3
+CONFIGURE_OPTIONS += --with-apr=/usr/apr/$(APR_VERSION)
+CONFIGURE_OPTIONS += --with-apr-util=/usr/apr-util/$(APR_VERSION)
 CONFIGURE_OPTIONS += --enable-nls
 CONFIGURE_OPTIONS += --disable-mod-activation
 CONFIGURE_OPTIONS += --enable-javahl

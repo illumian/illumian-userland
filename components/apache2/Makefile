@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 include ../../make-rules/shared-macros.mk
@@ -90,10 +91,10 @@ CONFIGURE_OPTIONS +=	CFLAGS="$(CFLAGS) -DSSL_EXPERIMENTAL -DSSL_ENGINE"
 CONFIGURE_OPTIONS +=	LTFLAGS="--silent --tag=CC"
 CONFIGURE_OPTIONS.32 +=	--enable-layout=Solaris-Apache2
 CONFIGURE_OPTIONS.64 +=	--enable-layout=Solaris-Apache2-$(MACH64)
-CONFIGURE_OPTIONS.32 +=	--with-apr=/usr/apr/1.3/bin/apr-1-config
-CONFIGURE_OPTIONS.64 +=	--with-apr=/usr/apr/1.3/bin/$(MACH64)/apr-1-config
-CONFIGURE_OPTIONS.32 +=	--with-apr-util=/usr/apr-util/1.3/bin/apu-1-config
-CONFIGURE_OPTIONS.64 +=	--with-apr-util=/usr/apr-util/1.3/bin/$(MACH64)/apu-1-config
+CONFIGURE_OPTIONS.32 +=	--with-apr=/usr/apr/$(APR_VERSION)/bin/apr-1-config
+CONFIGURE_OPTIONS.64 +=	--with-apr=/usr/apr/$(APR_VERSION)/bin/$(MACH64)/apr-1-config
+CONFIGURE_OPTIONS.32 +=	--with-apr-util=/usr/apr-util/$(APR_VERSION)/bin/apu-1-config
+CONFIGURE_OPTIONS.64 +=	--with-apr-util=/usr/apr-util/$(APR_VERSION)/bin/$(MACH64)/apu-1-config
 
 PATH=$(SPRO_VROOT)/bin:/usr/bin:/usr/gnu/bin
 

@@ -241,6 +241,8 @@ LINT =		$(lint.$(BITS))
 
 LD =		/usr/bin/ld
 
+APR_VERSION =	1.3
+
 PYTHON_VENDOR_PACKAGES.32 = /usr/lib/python$(PYTHON_VERSION)/vendor-packages
 PYTHON_VENDOR_PACKAGES.64 = /usr/lib/python$(PYTHON_VERSION)/vendor-packages/64
 PYTHON_VENDOR_PACKAGES = $(PYTHON_VENDOR_PACKAGES.$(BITS))
