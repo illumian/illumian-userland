@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -31,6 +32,9 @@ COMPONENT_SRC=		$(COMPONENT_NAME)-$(COMPONENT_VERSION)
 COMPONENT_ARCHIVE=	$(COMPONENT_SRC).tar.gz
 COMPONENT_ARCHIVE_HASH=	sha1:60faeaaf250642db5c0ea36cd6dcc9f99c8f3902
 COMPONENT_ARCHIVE_URL=	http://downloads.sourceforge.net/project/libpng/zlib/$(COMPONENT_VERSION)/$(COMPONENT_ARCHIVE)
+
+# Zlib configure can't handle --build option
+CONFIGURE_DEFAULT_HOST = no
 
 include ../../make-rules/prep.mk
 include ../../make-rules/configure.mk
