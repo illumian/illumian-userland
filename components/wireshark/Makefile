@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 include ../../make-rules/shared-macros.mk
@@ -34,6 +35,9 @@ include ../../make-rules/configure.mk
 include ../../make-rules/ips.mk
 
 PATCH_LEVEL=0
+
+# Override the default setting (-xO4) which can cause out of memory errors 
+studio_OPT=-xO2
 
 CONFIGURE_OPTIONS +=	--bindir=/usr/sbin
 CONFIGURE_OPTIONS +=	--disable-usr-local
