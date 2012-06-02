@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -50,7 +51,7 @@ IPS_COMPONENT_VERSION=	$(COMPONENT_VERSION).$(COMPONENT_SUBVERSION)
 # by configure from BUILD_DIR_32 / BUILD_DIR_64 directory, so the pre-generated
 # header file needs to be deleted.
 #
-COMPONENT_PREP_ACTION= (cd $(@D) ; $(RM) magick/magick-config.h)
+COMPONENT_PREP_ACTION= (cd $(@D) ; $(AUTORECONF) ; $(RM) magick/magick-config.h)
 
 # To get the Perl modules built it is necessary to copy the PerlMagick directory
 # to the build directory
