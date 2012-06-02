@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 include ../../make-rules/shared-macros.mk
@@ -30,6 +31,10 @@ COMPONENT_ARCHIVE=      $(COMPONENT_SRC).tar.gz
 COMPONENT_ARCHIVE_HASH= sha1:b3650e6542f0e09daadb2d467425530bc8eec333
 COMPONENT_ARCHIVE_URL=  http://download.savannah.nongnu.org/releases/openexr/$(COMPONENT_ARCHIVE)
 
+# For some reason openexr fails to link when building with studio.
+# Need to investigate but for now lets just use gcc.
+COMPILER = gcc
+
 include ../../make-rules/prep.mk
 include ../../make-rules/configure.mk
 include ../../make-rules/ips.mk
@@ -37,7 +42,7 @@ include ../../make-rules/ips.mk
 PATCH_LEVEL = 0
 
 # configure seems to add -nolibs, so we add that back the C++ runtime and stdlib
-CXXFLAGS += $(studio_CXXLIB_CSTD)
+CXXFLAGS.studio += $(studio_CXXLIB_CSTD)
 # there seems to be no other way to enable large files support
 CXXFLAGS += $(CPP_LARGEFILES)
 # it seems that --with-pic doesn't get PIC flags to the C++ compiler
