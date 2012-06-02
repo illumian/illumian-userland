@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2010, 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -108,7 +109,7 @@ tools:
 
 $(COMPONENT_DIRS):	$(WS_LOGS) setup FORCE
 	@cd $@ && echo "$(TARGET) $@" && \
-	 $(BASS_O_MATIC) $(TEMPLATE_ZONE:%=--template-zone %) \
+	 $(BASS_O_MATIC) --workspace=$(WS_TOP) $(TEMPLATE_ZONE:%=--template-zone %) \
 			 $(@:%=--component %) --make $(TARGET) $(LOG)
 
 publish:
@@ -123,7 +124,7 @@ endif
 
 $(COMPONENT_DIRS.nosetup):	$(WS_LOGS) FORCE
 	@cd $(@:%.nosetup=%) && echo "$(TARGET) $(@:%.nosetup=%)" && \
-	 $(BASS_O_MATIC) $(TEMPLATE_ZONE:%=--template-zone %) \
+	 $(BASS_O_MATIC) --workspace=$(WS_TOP) $(TEMPLATE_ZONE:%=--template-zone %) \
 			 $(@:%.nosetup=--component %) --make $(TARGET) $(LOG)
 
 FORCE:
