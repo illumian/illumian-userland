@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -42,6 +43,8 @@ PATCH_LEVEL=0
 # other directories.
 #
 COMPONENT_PREP_ACTION= (cd $(SOURCE_DIR)/sys/unix ; sh setup.sh)
+
+COMPONENT_BUILD_ENV += CC="$(CC)"
 
 COMPONENT_INSTALL_ARGS += CHOWN=true
 COMPONENT_INSTALL_ARGS += CHGRP=true
