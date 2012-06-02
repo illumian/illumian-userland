@@ -20,6 +20,7 @@
 #
 
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2006, 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -68,6 +69,8 @@ CONFIGURE_OPTIONS +=	--enable-ospf6d
 CONFIGURE_OPTIONS +=	--enable-ripngd
 CONFIGURE_OPTIONS +=	--enable-user=root
 CONFIGURE_OPTIONS +=	--enable-group=root
+
+COMPONENT_PREP_ACTION += (cd $(@D) ; autoconf; libtoolize -c -f)
 
 BUILD_PKG_DEPENDENCIES =	$(BUILD_TOOLS)
 
