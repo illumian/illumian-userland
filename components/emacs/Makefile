@@ -18,15 +18,18 @@
 #
 # CDDL HEADER END
 #
-# Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
+# Copyright (c) 2011, 2012, Oracle and/or its affiliates. All rights reserved.
 #
 include ../../make-rules/shared-macros.mk
 
 COMPONENT_NAME=		emacs
-COMPONENT_VERSION=	23.1
+COMPONENT_VERSION=	23.4
+COMPONENT_PROJECT_URL=	http://www.gnu.org/software/emacs/
 COMPONENT_SRC=		$(COMPONENT_NAME)-$(COMPONENT_VERSION)
 COMPONENT_ARCHIVE=	$(COMPONENT_SRC).tar.bz2
-COMPONENT_ARCHIVE_HASH=	sha1:5f2d5dfcc17e7627ea752f675c605fe37c9c145c
+COMPONENT_ARCHIVE_HASH=	\
+    sha256:26576f9e664397c729f78f5ffcd092969251988461896fe8793062346ee988b9
 COMPONENT_ARCHIVE_URL=	http://ftp.gnu.org/gnu/emacs/$(COMPONENT_ARCHIVE)
 
 include ../../make-rules/prep.mk
@@ -40,14 +43,6 @@ VARIANTS =	nox x gtk
 
 BUILD_64 = $(VARIANTS:%=$(BUILD_DIR)/$(MACH64)-%/.built)
 INSTALL_64 = $(VARIANTS:%=$(BUILD_DIR)/$(MACH64)-%/.installed)
-
-# emacs creates a directory in usr/lib/emacs/$(COMPONENT_VERSION) that
-# contains the platform name. Although the name is platform dependent,
-# the files inside it are the same on all platforms. By adding this
-# to the pkgmogrify macros, we can write our manifests in a portable way.
-EMACS_ULEV_PFX = $(MACH:sparc=sparc-sun)
-EMACS_ULEVDIR =	 $(EMACS_ULEV_PFX:i386=x86_64-pc)-solaris$(SOLARIS_VERSION)
-PKG_MACROS +=	EMACS_ULEVDIR=$(EMACS_ULEVDIR)
 
 # LD_OPTIONS is defined to apply desirable link-editor options to Userland
 # components. Non-executable stack and data break sparc emacs.
@@ -65,8 +60,13 @@ COMPILER =	gcc
 # local proto instead of from its final installed location.
 #CONFIGURE_PREFIX =	$(PROTO_DIR)/usr
 
+# The configure script runs the pkg-config command. Since we're building
+# 64-bit executables, we need pkg-config to use the 64-bit metadata files
+CONFIGURE_ENV += PKG_CONFIG_PATH=/usr/lib/$(MACH64)/pkgconfig
+
+CC += -m64
+
 # configure options common to all variants of emacs that we want to build.
-CONFIGURE_OPTIONS +=	CC="gcc -m64"
 CONFIGURE_OPTIONS +=	--infodir=$(CONFIGURE_INFODIR)
 CONFIGURE_OPTIONS +=	--datarootdir=$(CONFIGURE_PREFIX)/share
 CONFIGURE_OPTIONS +=	--libexecdir=$(CONFIGURE_PREFIX)/lib
