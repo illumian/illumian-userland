@@ -1,0 +1,10 @@
+--- sox-14.3.0/src/spectrogram.c.bak	2012-06-01 23:25:08.718407958 -0700
++++ sox-14.3.0/src/spectrogram.c	2012-06-01 23:24:27.640056194 -0700
+@@ -22,6 +22,7 @@
+ #include "sox_i.h"
+ #include "fft4g.h"
+ #include "sgetopt.h"
++#include <zlib.h>
+ #include <assert.h>
+ #include <math.h>
+ #include <png.h>
