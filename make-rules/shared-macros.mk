@@ -589,7 +589,7 @@ LD_OPTIONS +=	$(LD_MAP_NOEXSTK.$(MACH)) $(LD_MAP_NOEXDATA.$(MACH)) \
 # Environment variables and arguments passed into the build and install
 # environment(s).  These are the initial settings.
 COMPONENT_BUILD_ENV= \
-    LD_OPTIONS="$(LD_OPTIONS)"
+    LD_OPTIONS="$(LD_OPTIONS)" LC_ALL="C"
 COMPONENT_INSTALL_ENV= \
     LD_OPTIONS="$(LD_OPTIONS)"
 
