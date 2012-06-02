@@ -1,0 +1,91 @@
+From 610511a2a04185795a2e0d08ff25369126719346 Mon Sep 17 00:00:00 2001
+From: ro <ro@138bc75d-0d04-0410-961f-82ee72b054a4>
+Date: Mon, 1 Mar 2010 18:09:19 +0000
+Subject: [PATCH] 	* configure.ac (gcc_cv_as_cfi_directive)
+ [i?86-*-solaris*]: 	Disable cfi directives unless GCC
+ and gas agree on using read-only 	.eh_frame sections
+ for 64-bit. 	* configure: Regenerate.
+
+git-svn-id: svn+ssh://gcc.gnu.org/svn/gcc/trunk@157151 138bc75d-0d04-0410-961f-82ee72b054a4
+---
+ gcc/ChangeLog    |    7 +++++++
+ gcc/configure    |   18 +++++++++++++++++-
+ gcc/configure.ac |   18 +++++++++++++++++-
+ 3 files changed, 41 insertions(+), 2 deletions(-)
+
+diff --git a/gcc/ChangeLog b/gcc/ChangeLog
+index 57f4a15..f48a7d4 100644
+--- a/gcc/ChangeLog
++++ b/gcc/ChangeLog
+@@ -1,3 +1,10 @@
++2010-03-01  Rainer Orth  <ro@CeBiTec.Uni-Bielefeld.DE>
++
++	* configure.ac (gcc_cv_as_cfi_directive) [i?86-*-solaris*]:
++	Disable cfi directives unless GCC and gas agree on using read-only
++	.eh_frame sections for 64-bit.
++	* configure: Regenerate.
++
+ 2010-04-29  Release Manager
+ 
+ 	* GCC 4.4.4 released.
+diff --git a/gcc/configure b/gcc/configure
+index 481b345..6850dd3 100755
+--- a/gcc/configure
++++ b/gcc/configure
+@@ -21572,7 +21572,23 @@ else
+ 		sed -e /.eh_frame/!d -e N | grep READONLY > /dev/null; then
+ 	  gcc_cv_as_cfi_directive=no
+ 	else
+-	  gcc_cv_as_cfi_directive=yes
++	  case "$target" in
++	    i?86-*-solaris2.1[0-9]*)
++	      # On Solaris/x86, make sure that GCC and gas agree on using
++	      # read-only .eh_frame sections for 64-bit.
++	      if $gcc_cv_as --64 -o conftest.o conftest.s > /dev/null 2>&1 && \
++		$gcc_cv_objdump -h conftest.o 2>/dev/null | \
++			sed -e /.eh_frame/!d -e N | \
++			grep READONLY > /dev/null; then
++		gcc_cv_as_cfi_directive=yes
++	      else
++		gcc_cv_as_cfi_directive=no
++	      fi
++	      ;;
++	    *)
++	      gcc_cv_as_cfi_directive=yes
++	      ;;
++	  esac
+ 	fi
+       else
+         # no objdump, err on the side of caution
+diff --git a/gcc/configure.ac b/gcc/configure.ac
+index c2375a1..3de372b 100644
+--- a/gcc/configure.ac
++++ b/gcc/configure.ac
+@@ -2246,7 +2246,23 @@ gcc_GAS_CHECK_FEATURE([cfi directives], gcc_cv_as_cfi_directive,
+ 		sed -e /.eh_frame/!d -e N | grep READONLY > /dev/null; then
+ 	  gcc_cv_as_cfi_directive=no
+ 	else
+-	  gcc_cv_as_cfi_directive=yes
++	  case "$target" in
++	    i?86-*-solaris2.1[[0-9]]*)
++	      # On Solaris/x86, make sure that GCC and gas agree on using
++	      # read-only .eh_frame sections for 64-bit.
++	      if $gcc_cv_as --64 -o conftest.o conftest.s > /dev/null 2>&1 && \
++		$gcc_cv_objdump -h conftest.o 2>/dev/null | \
++			sed -e /.eh_frame/!d -e N | \
++			grep READONLY > /dev/null; then
++		gcc_cv_as_cfi_directive=yes
++	      else
++		gcc_cv_as_cfi_directive=no
++	      fi
++	      ;;
++	    *)
++	      gcc_cv_as_cfi_directive=yes
++	      ;;
++	  esac 
+ 	fi
+       else
+         # no objdump, err on the side of caution
+-- 
+1.7.5.4
+

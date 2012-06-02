@@ -42,9 +42,8 @@ CPPFLAGS+= -fexceptions
 
 CONFIGURE_PREFIX    =           /usr/gcc/4.4
 CONFIGURE_OPTIONS  +=           CPPFLAGS="$(CPPFLAGS)"
-CONFIGURE_OPTIONS  +=           --with-gmp=$(CONFIGURE_PREFIX)
-CONFIGURE_OPTIONS  +=           --with-mpfr=$(CONFIGURE_PREFIX)
-CONFIGURE_OPTIONS  +=           --with-mpc=$(CONFIGURE_PREFIX)
+CONFIGURE_OPTIONS  +=           --with-gmp-include=/usr/include/gmp
+CONFIGURE_OPTIONS  +=           --with-mpfr-include=/usr/include/mpfr
 CONFIGURE_OPTIONS  +=           --without-ppl
 CONFIGURE_OPTIONS  +=           --without-cloog
 CONFIGURE_OPTIONS  +=           --with-gnu-as
