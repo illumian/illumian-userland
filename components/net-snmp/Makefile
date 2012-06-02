@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 include ../../make-rules/shared-macros.mk
@@ -33,12 +34,15 @@ COMPONENT_ARCHIVE_HASH= sha1:ac5ba033c10d53d3057415121f8c4936c643c208
 #COMPONENT_ARCHIVE_URL=	http://ftp.ntua.gr/mirror/net-snmp/net-snmp/$(COMPONENT_VERSION)/$(COMPONENT_ARCHIVE)
 COMPONENT_ARCHIVE_URL= http://ftp.ntua.gr/mirror/net-snmp/OldFiles/net-snmp-5.4.x/$(COMPONENT_VERSION)/$(COMPONENT_ARCHIVE)
 
+# Compilation of perl modules will fail with studio
+# As a temporary solution enfore usage of gcc.
+COMPILER = gcc
 
 include $(WS_TOP)/make-rules/prep.mk
 include $(WS_TOP)/make-rules/configure.mk
 include $(WS_TOP)/make-rules/ips.mk
 
-CFLAGS += $(studio_C99_ENABLE)
+CFLAGS.studio += $(studio_C99_ENABLE)
 CPPFLAGS += "-DFALSE_SHARING_ALIGN=64"
 
 CONFIGURE_OPTIONS  +=	--with-default-snmp-version=3

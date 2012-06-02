@@ -1,0 +1,22 @@
+--- net-snmp-5.4.1/configure.bak	2012-06-01 19:17:21.589283371 -0700
++++ net-snmp-5.4.1/configure	2012-06-01 19:17:54.415899738 -0700
+@@ -31640,7 +31640,7 @@ if test "x$install_perl" != "xno" ; then
+       echo "$as_me:$LINENO: checking for Perl cc" >&5
+ echo $ECHO_N "checking for Perl cc... $ECHO_C" >&6
+ 
+-      PERLCC=`$myperl -V:cc | $myperl -n -e 'print if (s/^\s*cc=.([-\w\s\/]+).;\s*/$1/);'`
++      PERLCC=`$myperl -V:cc | $myperl -n -e 'print if (s/^\s*cc=.([-\w\.\s\/]+).;\s*/$1/);'`
+ 
+       if test "x$PERLCC" != "x" ; then
+         echo "$as_me:$LINENO: result: $PERLCC" >&5
+--- net-snmp-5.4.1/configure.in.bak	2012-06-01 19:17:21.589283371 -0700
++++ net-snmp-5.4.1/configure.in	2012-06-01 19:17:54.415899738 -0700
+@@ -2968,7 +2968,7 @@
+     if test "xenable_perl_cc_checks" != "xno" ; then
+       AC_MSG_CHECKING([for Perl cc])
+       changequote(, )
+-      PERLCC=`$myperl -V:cc | $myperl -n -e 'print if (s/^\s*cc=.([-\w\s\/]+).;\s*/$1/);'`
++      PERLCC=`$myperl -V:cc | $myperl -n -e 'print if (s/^\s*cc=.([-\w\.\s\/]+).;\s*/$1/);'`
+       changequote([, ])
+       if test "x$PERLCC" != "x" ; then
+         AC_MSG_RESULT([$PERLCC])
