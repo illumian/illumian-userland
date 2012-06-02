@@ -1,0 +1,16 @@
+--- squid-3.1.8/helpers/negotiate_auth/squid_kerb_auth/configure.in.bak	2012-06-02 06:25:07.694015547 -0700
++++ squid-3.1.8/helpers/negotiate_auth/squid_kerb_auth/configure.in	2012-06-02 06:25:50.335448274 -0700
+@@ -299,12 +299,7 @@
+ 		    check_mit
+                   fi
+                   ;;
+-           SunOS) pkginfo SUNWgss >/dev/null 2>&1
+-                  if test $? = 0 ; then
+-                    check_seam
+-		  else 
+-		    check_mit
+-                  fi
++           SunOS) check_seam
+                   ;;
+            FreeBSD) check_heimdal
+                     ;;
