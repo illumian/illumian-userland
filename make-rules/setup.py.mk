@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2010, 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -35,14 +36,14 @@ BUILD_64 = $(PYTHON_VERSIONS:%=$(BUILD_DIR)/$(MACH64)-%/.built)
 INSTALL_32 = $(PYTHON_VERSIONS:%=$(BUILD_DIR)/$(MACH32)-%/.installed)
 INSTALL_64 = $(PYTHON_VERSIONS:%=$(BUILD_DIR)/$(MACH64)-%/.installed)
 
-PYTHON_ENV =	CC="$(CC)"
-PYTHON_ENV +=	CFLAGS="$(CFLAGS)"
+COMPONENT_BUILD_ENV +=	CC="$(CC)"
+COMPONENT_BUILD_ENV +=	CFLAGS="$(CFLAGS)"
 
 # build the configured source
 $(BUILD_DIR)/%/.built:	$(SOURCE_DIR)/.prep
 	$(RM) -r $(@D) ; $(MKDIR) $(@D)
 	$(COMPONENT_PRE_BUILD_ACTION)
-	(cd $(SOURCE_DIR) ; $(ENV) $(PYTHON_ENV) \
+	(cd $(SOURCE_DIR) ; $(ENV) $(COMPONENT_BUILD_ENV) \
 		$(PYTHON.$(BITS)) ./setup.py build \
 			--build-temp $(@D:$(BUILD_DIR)/%=%))
 	$(COMPONENT_POST_BUILD_ACTION)
