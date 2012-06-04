@@ -18,14 +18,18 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2010, 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
 UNPACK =	$(WS_TOOLS)/userland-unpack
 FETCH =		$(WS_TOOLS)/userland-fetch
 
+# Only clean the SOURCE_DIR if there's a COMPONENT_ARCHIVE to recreate it from
+ifdef COMPONENT_ARCHIVE
 ARCHIVES += $(COMPONENT_ARCHIVE)
 CLEAN_PATHS += $(SOURCE_DIR)
+endif
 
 # In order to override PATCH_DIR and PATCH_PATTERN in component makefiles, they
 # need to be conditionally set here.  This means that the override needs to
@@ -60,21 +64,26 @@ NUM_ARCHIVES =	1 2 3 4 5 6 7
 $(eval $(call download-rule,))
 $(foreach suffix,$(NUM_ARCHIVES),$(eval $(call download-rule,_$(suffix))))
 
+# Allow overriding by alternative source delivery methods
+UNPACK_STAMP	?= $(SOURCE_DIR)/.unpacked
+PATCH_STAMP	?= $(SOURCE_DIR)/.patched
+DOWNLOAD_STAMP	?= $(ARCHIVES:%=$(USERLAND_ARCHIVES)%)
+
 $(SOURCE_DIR)/.unpacked:	download Makefile $(PATCHES)
 	$(RM) -r $(SOURCE_DIR)
 	$(UNPACK) $(UNPACK_ARGS) $(USERLAND_ARCHIVES)$(COMPONENT_ARCHIVE)
 	$(TOUCH) $@
 
-$(SOURCE_DIR)/.patched:	$(SOURCE_DIR)/.unpacked $(STAMPS)
+$(SOURCE_DIR)/.patched:	$(UNPACK_STAMP) $(STAMPS)
 	$(TOUCH) $@
 
-$(SOURCE_DIR)/.prep:	$(SOURCE_DIR)/.patched
+$(SOURCE_DIR)/.prep:	$(PATCH_STAMP)
 	$(COMPONENT_PREP_ACTION)
 	$(TOUCH) $@
 
 prep::	$(SOURCE_DIR)/.prep
 
-download::	$(ARCHIVES:%=$(USERLAND_ARCHIVES)%)
+download::	$(DOWNLOAD_STAMP)
 
 clean::
 	$(RM) -r $(CLEAN_PATHS)
