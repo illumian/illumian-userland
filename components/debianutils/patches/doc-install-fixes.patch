@@ -1,0 +1,12 @@
+diff --git a/po4a/Makefile.am b/po4a/Makefile.am
+index 5c4c216..94a4eb5 100644
+--- a/po4a/Makefile.am
++++ b/po4a/Makefile.am
+@@ -1,6 +1,6 @@
+ AUTOMAKE_OPTIONS = foreign
+ 
+-SUBDIRS = fr sl de es
++#SUBDIRS = fr sl de es
+ 
+ #SUBDIRS = . fr
+ 
