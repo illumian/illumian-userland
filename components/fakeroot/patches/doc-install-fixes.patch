@@ -1,0 +1,14 @@
+diff --git a/doc/Makefile.am b/doc/Makefile.am
+index bf5ce07..3c8c635 100644
+--- a/doc/Makefile.am
++++ b/doc/Makefile.am
+@@ -1,7 +1,7 @@
+ AUTOMAKE_OPTIONS=foreign
+-SUBDIRS = de es fr sv nl
++#SUBDIRS = de es fr sv nl
+ 
+-man_MANS = faked.1 fakeroot.1
++man_MANS = $(srcdir)/faked.1 $(srcdir)/fakeroot.1
+ 
+ #another automake bug workaround
+ EXTRA_DIST = $(man_MANS)

@@ -1,0 +1,141 @@
+diff --git a/communicate.h b/communicate.h
+index 947e807..ee9162a 100644
+--- a/communicate.h
++++ b/communicate.h
+@@ -68,6 +68,8 @@
+ 	|| (!defined __UCLIBC__ && (__GLIBC__ > 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 1))) \
+ 	|| (defined __UCLIBC__ && defined __UCLIBC_HAS_LFS__)
+ # define STAT64_SUPPORT
++#elif defined(sun) && defined(_LP64)
++# define _STAT_VER 2
+ #else
+ # ifndef __APPLE__
+ #  warning Not using stat64 support
+diff --git a/libfakeroot.c b/libfakeroot.c
+index 68a95fb..bb81a84 100644
+--- a/libfakeroot.c
++++ b/libfakeroot.c
+@@ -2,6 +2,7 @@
+   Copyright Ⓒ 1997, 1998, 1999, 2000, 2001  joost witteveen
+   Copyright Ⓒ 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009  Clint Adams
+   Copyright Ⓒ 2012 Mikhail Gusarov
++  Copyright Ⓒ 2012 Nexenta Systems.  All rights reserved.
+ 
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+@@ -1552,6 +1553,17 @@ int fakeroot_isdisabled(void)
+ }
+ 
+ #ifdef HAVE_ACL_T
++#ifdef __sun
++int facl(int fd, int cmd, int nentries, void *aclbufp) {
++  errno = ENOTSUP;
++  return -1;
++}
++
++int acl(const char *path_p, int cmd, int nentries, void *aclbufp) {
++  errno = ENOTSUP;
++  return -1;
++}
++#else
+ int acl_set_fd(int fd, acl_t acl) {
+   errno = ENOTSUP;
+   return -1;
+@@ -1561,6 +1573,7 @@ int acl_set_file(const char *path_p, acl_type_t type, acl_t acl) {
+   errno = ENOTSUP;
+   return -1;
+ }
++#endif /* __sun */
+ #endif /* HAVE_SYS_ACL_H */
+ 
+ #ifdef HAVE_FTS_READ
+diff --git a/wrapfunc.inp b/wrapfunc.inp
+index 5629b0f..c3f4cb8 100644
+--- a/wrapfunc.inp
++++ b/wrapfunc.inp
+@@ -168,8 +168,13 @@ unlinkat;int;(int dir_fd, const char *pathname, int flags);(dir_fd, pathname, fl
+ #endif /* HAVE_FSTATAT */
+ 
+ #ifdef HAVE_ACL_T
++#ifdef __sun
++facl;int;(int fd, int cmd, int nentries, void *aclbufp);(fd, cmd, nentries, aclbufp)
++acl;int;(const char *path_p, int cmd, int nentries, void *aclbufp);(path_p, cmd, nentries, aclbufp)
++#else
+ acl_set_fd;int;(int fd, acl_t acl);(fd, acl)
+ acl_set_file;int;(const char *path_p, acl_type_t type, acl_t acl);(path_p, type, acl)
++#endif /* __sun */
+ #endif /* HAVE_ACL_T */
+ 
+ #ifdef HAVE_FTS_READ
+diff --git a/configure.ac b/configure.ac
+index 43a0984..ecbd4c8 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -544,6 +544,21 @@ AC_MSG_CHECKING([for MacOS X/Darwin])
+   )
+ AM_CONDITIONAL([MACOSX], [test x$macosx = xtrue])
+ 
++dnl AH_TEMPLATE([SOLARIS], [is __sun defined by the compiler])
++AC_MSG_CHECKING([for Solaris])
++  AC_PREPROC_IFELSE(
++    [AC_LANG_PROGRAM([[
++       #ifndef __sun
++       #error We are somewhere worse
++       #endif
++  ]])],
++    [solaris=true
++     AC_MSG_RESULT([yes])],
++    [AC_MSG_RESULT([no])
++     solaris=false]
++  )
++AM_CONDITIONAL([SOLARIS], [test x$solaris = xtrue])
++
+ AC_CONFIG_FILES([
+    Makefile
+    scripts/Makefile
+diff --git a/scripts/fakeroot.in b/scripts/fakeroot.in
+index 324a9dc..6237d54 100755
+--- a/scripts/fakeroot.in
++++ b/scripts/fakeroot.in
+@@ -35,7 +35,8 @@ FAKEROOT_BINDIR=@bindir@
+ 
+ USEABSLIBPATH=@LDPRELOADABS@
+ LIB=lib@fakeroot_transformed@@DLSUFFIX@
+-PATHS=@libdir@:${FAKEROOT_PREFIX}/lib64/libfakeroot:${FAKEROOT_PREFIX}/lib32/libfakeroot
++@SOLARIS_FALSE@PATHS=@libdir@:${FAKEROOT_PREFIX}/lib64/libfakeroot:${FAKEROOT_PREFIX}/lib32/libfakeroot
++@SOLARIS_TRUE@PATHS=@libdir@:${FAKEROOT_PREFIX}/lib/libfakeroot:${FAKEROOT_PREFIX}/lib/amd64/libfakeroot
+ FAKED=${FAKEROOT_BINDIR}/@faked_transformed@
+ 
+ FAKED_MODE="unknown-is-root"
+diff --git a/scripts/Makefile.am b/scripts/Makefile.am
+index cd4065b..c89be89 100644
+--- a/scripts/Makefile.am
++++ b/scripts/Makefile.am
+@@ -12,6 +12,16 @@ define macosx_true
+ endef
+ endif !MACOSX
+ 
++if SOLARIS
++define solaris_false
++#
++endef
++else !SOLARIS
++define solaris_true
++#
++endef
++endif !SOLARIS
++
+ do_subst = sed -e 's,[@]prefix[@],$(prefix),g' \
+ 	   -e 's,[@]bindir[@],$(bindir),g' \
+ 	   -e 's,[@]libdir[@],$(libdir),g' \
+@@ -26,7 +36,9 @@ do_subst = sed -e 's,[@]prefix[@],$(prefix),g' \
+ 	   -e 's,[@]LDPRELOADABS[@],$(LDPRELOADABS),g' \
+ 	   -e 's,[@]LDEXTRAVAR[@],$(LDEXTRAVAR),g' \
+ 	   -e 's,[@]MACOSX_FALSE[@],$(macosx_false),g' \
+-	   -e 's,[@]MACOSX_TRUE[@],$(macosx_true),g'
++	   -e 's,[@]MACOSX_TRUE[@],$(macosx_true),g' \
++	   -e 's,[@]SOLARIS_FALSE[@],$(solaris_false),g' \
++	   -e 's,[@]SOLARIS_TRUE[@],$(solaris_true),g'
+ 
+ fakeroot: $(srcdir)/fakeroot.in Makefile
+ 	$(do_subst) < $(srcdir)/fakeroot.in > fakeroot
