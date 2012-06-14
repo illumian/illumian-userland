@@ -8,6 +8,10 @@ DEBVERSION ?= $(BUILD_NUM).0
 # (like debian/tmp):
 PROTO_DIRS = $(PKG_PROTO_DIRS:%=-d %)
 
+# See in make-rules/ips.mk
+# Do not use PKG_OPTIONS here cause it may not be limited to '-D's
+DEFINES = $(PKG_MACROS:%=-D %)
+
 # Where to create package contents
 # and debs (like debian/pkg-name)
 DEBS_DIR = $(PROTO_DIR)/debs
@@ -20,7 +24,12 @@ deb: build install $(MANGLED)
 		-S $(COMPONENT_NAME) \
 		-N $(CONSOLIDATION) \
 		-V $(DEBVERSION) \
-		-D $(DEBS_DIR) \
-		$(PROTO_DIRS) $(MANGLED)
+		-O $(DEBS_DIR) \
+		$(PROTO_DIRS) \
+		$(DEFINES) \
+		$(MANGLED)
+
+clean::
+	$(RM) -r $(DEBS_DIR)
 
 
