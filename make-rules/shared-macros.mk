@@ -23,6 +23,9 @@
 # Copyright (c) 2012, Bayard G. Bell. All rights reserved.
 #
 
+ifndef _SHARED_MACROS_MK_
+_SHARED_MACROS_MK_ = shared-macros.mk
+
 PATH=/usr/bin:/usr/gnu/bin
 
 # The location of a mirror of community source archives that we build in this
@@ -606,3 +609,5 @@ COMPONENT_INSTALL_ARGS += $(COMPONENT_INSTALL_ARGS.$(BITS))
 NO_TESTS =	test-nothing
 test-nothing:
 	@echo "There are no tests available at this time."
+
+endif

@@ -22,6 +22,9 @@
 # Copyright (c) 2010, 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
+ifndef _PREP_MK_
+_PREP_MK_ = prep.mk
+
 UNPACK =	$(WS_TOOLS)/userland-unpack
 FETCH =		$(WS_TOOLS)/userland-fetch
 
@@ -90,3 +93,5 @@ clean::
 
 clobber::	clean
 	$(RM) -r $(CLOBBER_PATHS)
+
+endif

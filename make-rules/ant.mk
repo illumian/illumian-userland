@@ -18,8 +18,12 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
+
+ifndef _ANT_MK_
+_ANT_MK_ = ant.mk
 
 ANT=/usr/bin/ant
 
@@ -45,3 +49,5 @@ $(BUILD_DIR)/%/.installed:	$(BUILD_DIR)/%/.built
 
 clean::
 	$(RM) -r $(SOURCE_DIR) $(BUILD_DIR)
+
+endif

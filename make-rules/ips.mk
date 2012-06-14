@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2010, 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -34,6 +35,9 @@
 #
 # This set of rules makes the "publish" target the default target for make(1)
 #
+
+ifndef _IPS_MK_
+_IPS_MK_ = ips.mk
 
 PKGDEPEND =	/usr/bin/pkgdepend
 PKGFMT =	/usr/bin/pkgfmt
@@ -226,3 +230,5 @@ $(BUILD_DIR)/.package-installed:	$(PKGINSTALLED)
 CLEAN_PATHS +=	required-pkgs.mk
 
 include $(WS_TOP)/make-rules/deb.mk
+
+endif

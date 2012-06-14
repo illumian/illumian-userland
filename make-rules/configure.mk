@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All right reserved.
 # Copyright (c) 2010, 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -53,6 +54,9 @@
 #	COMPONENT_BUILD_TARGETS, COMPONENT_INSTALL_TARGETS
 #	COMPONENT_TEST_TARGETS
 #
+
+ifndef _CONFIGURE_MK_
+_CONFIGURE_MK_ = configure.mk
 
 CONFIGURE_PREFIX =	/usr
 
@@ -134,3 +138,5 @@ $(BUILD_DIR)/%/.tested:	$(BUILD_DIR)/%/.built
 
 clean::
 	$(RM) -r $(BUILD_DIR) $(PROTO_DIR)
+
+endif

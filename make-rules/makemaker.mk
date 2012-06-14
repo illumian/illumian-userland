@@ -18,8 +18,12 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
+
+ifndef _MAKEMAKER_MK_
+_MAKEMAKER_MK_ = makemaker.mk
 
 # we only do 32 bit perl for now.
 BITS=32
@@ -90,3 +94,5 @@ $(PERLBD_ARCH)-%/.tested:	$(PERLBD_ARCH)-%/.built
 
 clean:: 
 	$(RM) -r $(BUILD_DIR) $(PROTO_DIR)
+
+endif

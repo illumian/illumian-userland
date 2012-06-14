@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 #
@@ -43,6 +44,9 @@
 # can be specified in
 #	COMPONENT_BUILD_TARGETS, COMPONENT_INSTALL_TARGETS
 #
+
+ifndef _JUSTMAKE_MK_
+_JUSTMAKE_MK_ = justmake.mk
 
 COMPONENT_INSTALL_ARGS += DESTDIR=$(PROTO_DIR)
 
@@ -74,3 +78,5 @@ $(BUILD_DIR)/%/.tested: $(BUILD_DIR)/%/.built
 
 clean::
 	$(RM) -r $(BUILD_DIR) $(PROTO_DIR)
+
+endif

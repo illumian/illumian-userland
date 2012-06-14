@@ -22,6 +22,9 @@
 # Copyright (c) 2010, 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
+ifndef _SETUP_PY_MK_
+_SETUP_PY_MK_ = setup.py.mk
+
 $(BUILD_DIR)/%-2.6/.built:		PYTHON_VERSION=2.6
 $(BUILD_DIR)/$(MACH32)-%/.built:	BITS=32
 $(BUILD_DIR)/$(MACH64)-%/.built:	BITS=64
@@ -79,3 +82,5 @@ $(BUILD_DIR)/%/.tested:	$(COMPONENT_TEST_DEP)
 
 clean::
 	$(RM) -r $(SOURCE_DIR) $(BUILD_DIR)
+
+endif

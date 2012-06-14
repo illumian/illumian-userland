@@ -18,12 +18,16 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
 #
 # (hopefully) helpful common targets.
 #
+
+ifndef _SHARED_TARGETS_MK_
+_SHARED_TARGETS_MK_ = shared-targets.mk
 
 PROTOMAN1FILES=$(MAN1FILES:%=$(PROTOUSRSHAREMAN1DIR)/%)
 PROTOMAN1MFILES=$(MAN1MFILES:%=$(PROTOUSRSHAREMAN1MDIR)/%)
@@ -79,3 +83,5 @@ $(PROTOMAN1MFILES): $(PROTOUSRSHAREMAN1MDIR)
 $(PROTOMAN3FILES): $(PROTOUSRSHAREMAN3DIR)
 
 $(PROTOMAN4FILES): $(PROTOUSRSHAREMAN4DIR)
+
+endif

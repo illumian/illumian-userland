@@ -21,6 +21,9 @@
 # Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 #
 
+ifndef _GIT_MK_
+_GIT_MK_ = git.mk
+
 # Unpack/Download are pretty much the same thing for git
 UNPACK_STAMP	= $(SOURCE_DIR)
 DOWNLOAD_STAMP	= $(SOURCE_DIR)
@@ -44,3 +47,4 @@ clean::
 clobber::
 	$(RM) -r $(SOURCE_DIR)
 
+endif

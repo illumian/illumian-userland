@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -35,6 +36,9 @@
 #
 # llib-l{libname}
 #
+
+ifndef _LINT_LIBRARIES_MK_
+_LINT_LIBRARIES_MK_ = lint-libraries.mk
 
 LINT_LIBRARIES = $(wildcard llib-*)
 
@@ -66,3 +70,5 @@ endef
 
 # Generate the lint library rules from the above template
 $(foreach lintlib,$(LINT_LIBRARIES),$(eval $(call lintlib-rule,$(lintlib))))
+
+endif
