@@ -535,7 +535,6 @@ foreach my $manifest_file (@ARGV) {
     my $fmri = $$manifest_data{'pkg.fmri'};
     my @provides = get_debpkg_names $fmri;
     my $debname = shift @provides; # main name (web-browser-elinks)
-    my $debsection = get_pkg_section $debname;
     my $debpriority = $$manifest_data{'pkg.priority'} // 'optional';
     my @replaces = ();
     my @zones = ();
@@ -560,6 +559,15 @@ foreach my $manifest_file (@ARGV) {
     } else {
         blab "Using given version: $VERSION";
         $debversion = $VERSION;
+    }
+
+    my $debsection = undef;
+    if (exists $$manifest_data{'pkg.renamed'} 
+        && $$manifest_data{'pkg.renamed'} eq "true"
+    ) {
+        $debsection = "metapackages";
+    } else {
+        $debsection = get_pkg_section $debname;
     }
 
     my $preinst  = '';
