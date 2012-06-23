@@ -787,6 +787,7 @@ foreach my $manifest_file (@ARGV) {
     my @recommends = ();
     my @suggests = ();
     my @conflicts = ();
+    my @conditionals = ();
     blab "Getting dependencies ...";
     foreach my $dep (@{$$manifest_data{'depend'}}) {
         if ($$dep{'fmri'} ne '__TBD') {
@@ -795,12 +796,17 @@ foreach my $manifest_file (@ARGV) {
             push @predepends, $$dep{'fmri'} if $$dep{'type'} eq 'origin';
             push @suggests,   $$dep{'fmri'} if $$dep{'type'} eq 'optional';
             push @conflicts,  $$dep{'fmri'} if $$dep{'type'} eq 'exclude';
+            # FIXME: Dpkg doesn't support conditional dependencies.  The feature was proposed
+            # (see here: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=77324) but rejected.
+            # Adding support for this is something we should do, but for now we fake it by
+            # just assuming all conditionals are interchangeable.
+            push @conditionals, $$dep{'fmri'} if $$dep{'type'} eq 'conditional';
         }
     }
     push @depends, @{guess_required_deps($pkgdir)};
 
     uniq \@depends, \@replaces, \@provides, \@predepends, \@recommends, \@suggests, \@conflicts;
-    uniq \@restart_fmri, \@refresh_fmri, \@suspend_fmri, \@disable_fmri;
+    uniq \@conditionals, \@restart_fmri, \@refresh_fmri, \@suspend_fmri, \@disable_fmri;
     # When a program and a library are in the same package:
     @depends = grep {($_ ne $debname) && !($_ ~~ @provides)} @depends;
 
@@ -826,7 +832,7 @@ foreach my $manifest_file (@ARGV) {
 
     $control .= 'Provides: '    . join(', ', @provides)   . "\n" if @provides;
 
-    if (@depends) {
+    if (@depends || @conditionals) {
         my $sep = '';
         $control .= 'Depends: ';
         foreach my $dep (@depends) {
@@ -835,6 +841,13 @@ foreach my $manifest_file (@ARGV) {
             $control .= "$sep$depname";
             $control .= " (>= $depversion)" if ($depversion);
             $sep = ', ';
+        }
+        foreach my $dep (@conditionals) {
+            my $depname = get_debpkg_name($dep);
+            my $depversion = get_ips_version($dep);
+            $control .= "$sep$depname";
+            $control .= " (>= $depversion)" if ($depversion);
+            $sep = ' | ';
         }
         $control .= "\n";
     }
