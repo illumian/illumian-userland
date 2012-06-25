@@ -18,6 +18,7 @@
 #
 # CDDL HEADER END
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
@@ -133,8 +134,6 @@ dir path=usr/share/doc/gettext/examples/hello-tcl/po
 dir path=usr/share/doc/gettext/examples/hello-ycp
 dir path=usr/share/doc/gettext/examples/hello-ycp/m4
 dir path=usr/share/doc/gettext/examples/hello-ycp/po
-dir path=usr/share/doc/gettext/javadoc1
-dir path=usr/share/doc/gettext/javadoc1/images
 dir path=usr/share/doc/gettext/javadoc2
 dir path=usr/share/doc/gettext/javadoc2/gnu
 dir path=usr/share/doc/gettext/javadoc2/gnu/gettext
@@ -189,8 +188,6 @@ dir path=usr/share/locale/nl
 dir path=usr/share/locale/nl/LC_MESSAGES
 dir path=usr/share/locale/nn
 dir path=usr/share/locale/nn/LC_MESSAGES
-dir path=usr/share/locale/no
-dir path=usr/share/locale/no/LC_MESSAGES
 dir path=usr/share/locale/pl
 dir path=usr/share/locale/pl/LC_MESSAGES
 dir path=usr/share/locale/pt
@@ -265,7 +262,6 @@ file path=usr/share/aclocal/lib-ld.m4
 file path=usr/share/aclocal/lib-link.m4
 file path=usr/share/aclocal/lib-prefix.m4
 file path=usr/share/aclocal/lock.m4
-file path=usr/share/aclocal/longdouble.m4
 file path=usr/share/aclocal/longlong.m4
 file path=usr/share/aclocal/nls.m4
 file path=usr/share/aclocal/po.m4
@@ -274,7 +270,6 @@ file path=usr/share/aclocal/progtest.m4
 file path=usr/share/aclocal/size_max.m4
 file path=usr/share/aclocal/stdint_h.m4
 file path=usr/share/aclocal/uintmax_t.m4
-file path=usr/share/aclocal/ulonglong.m4
 file path=usr/share/aclocal/visibility.m4
 file path=usr/share/aclocal/wchar_t.m4
 file path=usr/share/aclocal/wint_t.m4
@@ -1421,33 +1416,6 @@ file path=usr/share/doc/gettext/gettext_9.html
 file path=usr/share/doc/gettext/gettext_foot.html
 file path=usr/share/doc/gettext/gettext_toc.html
 file path=usr/share/doc/gettext/gettextize.1.html
-file path=usr/share/doc/gettext/javadoc1/AllNames.html
-file path=usr/share/doc/gettext/javadoc1/gnu.gettext.GettextResource.html
-file path=usr/share/doc/gettext/javadoc1/images/blue-ball-small.gif
-file path=usr/share/doc/gettext/javadoc1/images/blue-ball.gif
-file path=usr/share/doc/gettext/javadoc1/images/class-index.gif
-file path=usr/share/doc/gettext/javadoc1/images/constructor-index.gif
-file path=usr/share/doc/gettext/javadoc1/images/constructors.gif
-file path=usr/share/doc/gettext/javadoc1/images/cyan-ball-small.gif
-file path=usr/share/doc/gettext/javadoc1/images/cyan-ball.gif
-file path=usr/share/doc/gettext/javadoc1/images/error-index.gif
-file path=usr/share/doc/gettext/javadoc1/images/exception-index.gif
-file path=usr/share/doc/gettext/javadoc1/images/green-ball-small.gif
-file path=usr/share/doc/gettext/javadoc1/images/green-ball.gif
-file path=usr/share/doc/gettext/javadoc1/images/interface-index.gif
-file path=usr/share/doc/gettext/javadoc1/images/magenta-ball-small.gif
-file path=usr/share/doc/gettext/javadoc1/images/magenta-ball.gif
-file path=usr/share/doc/gettext/javadoc1/images/method-index.gif
-file path=usr/share/doc/gettext/javadoc1/images/methods.gif
-file path=usr/share/doc/gettext/javadoc1/images/package-index.gif
-file path=usr/share/doc/gettext/javadoc1/images/red-ball-small.gif
-file path=usr/share/doc/gettext/javadoc1/images/red-ball.gif
-file path=usr/share/doc/gettext/javadoc1/images/variable-index.gif
-file path=usr/share/doc/gettext/javadoc1/images/variables.gif
-file path=usr/share/doc/gettext/javadoc1/images/yellow-ball-small.gif
-file path=usr/share/doc/gettext/javadoc1/images/yellow-ball.gif
-file path=usr/share/doc/gettext/javadoc1/packages.html
-file path=usr/share/doc/gettext/javadoc1/tree.html
 file path=usr/share/doc/gettext/javadoc2/allclasses-frame.html
 file path=usr/share/doc/gettext/javadoc2/deprecated-list.html
 file path=usr/share/doc/gettext/javadoc2/gnu/gettext/GettextResource.html
@@ -1482,7 +1450,7 @@ file path=usr/share/doc/gettext/textdomain.3.html
 file path=usr/share/doc/gettext/tutorial.html
 file path=usr/share/doc/gettext/xgettext.1.html
 file path=usr/share/gettext/ABOUT-NLS
-file path=usr/share/gettext/archive.tar.gz
+file path=usr/share/gettext/archive.cvs.tar.gz
 file path=usr/share/gettext/config.rpath mode=0555
 file path=usr/share/gettext/gettext.h
 file path=usr/share/gettext/intl/COPYING.LIB-2.0
@@ -1611,8 +1579,6 @@ file path=usr/share/locale/nl/LC_MESSAGES/gettext-runtime.mo
 file path=usr/share/locale/nl/LC_MESSAGES/gettext-tools.mo
 file path=usr/share/locale/nn/LC_MESSAGES/gettext-runtime.mo
 file path=usr/share/locale/nn/LC_MESSAGES/gettext-tools.mo
-file path=usr/share/locale/no/LC_MESSAGES/gettext-runtime.mo
-file path=usr/share/locale/no/LC_MESSAGES/gettext-tools.mo
 file path=usr/share/locale/pl/LC_MESSAGES/gettext-runtime.mo
 file path=usr/share/locale/pl/LC_MESSAGES/gettext-tools.mo
 file path=usr/share/locale/pt/LC_MESSAGES/gettext-runtime.mo

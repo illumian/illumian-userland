@@ -20,22 +20,27 @@
 #
 
 #
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
 include ../../make-rules/shared-macros.mk
 
 COMPONENT_NAME=		gettext
-COMPONENT_VERSION=	0.16.1
+COMPONENT_VERSION=	0.18
 IPS_PKG_NAME=		text/gnu-gettext
 COMPONENT_SRC=		$(COMPONENT_NAME)-$(COMPONENT_VERSION)
 COMPONENT_ARCHIVE=	$(COMPONENT_SRC).tar.gz
-COMPONENT_ARCHIVE_HASH=	sha1:8642f4346dfd6a18ecd883329e150bfe9e0886c3
+COMPONENT_ARCHIVE_HASH=	sha1:de396ec6877a451427d8597197d18c2d4b8f1a26
 COMPONENT_ARCHIVE_URL=	http://ftp.gnu.org/pub/gnu/gettext/$(COMPONENT_ARCHIVE)
 
 include ../../make-rules/prep.mk
 include ../../make-rules/configure.mk
 include ../../make-rules/ips.mk
+
+# Needed to find libiconv in /usr/gnu/lib
+LDFLAGS += -L/lib -L/usr/lib -L/usr/gnu/lib
+LDFLAGS += -R/lib -R/usr/lib -R/usr/gnu/lib
 
 CONFIGURE_OPTIONS  +=		--disable-java
 CONFIGURE_OPTIONS  +=		--disable-libasprintf
@@ -43,7 +48,9 @@ CONFIGURE_OPTIONS  +=		--without-emacs
 CONFIGURE_OPTIONS  +=		--disable-openmp
 CONFIGURE_OPTIONS  +=		--disable-static
 CONFIGURE_OPTIONS  +=		--disable-shared
+CONFIGURE_OPTIONS  +=		--with-libiconv-prefix=/usr/gnu
 CONFIGURE_OPTIONS  +=		CFLAGS="$(CFLAGS)"
+CONFIGURE_OPTIONS  +=		LDFLAGS="$(LDFLAGS)"
 
 # common targets
 build:		$(BUILD_32)
