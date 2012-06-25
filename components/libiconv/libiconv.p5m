@@ -1,0 +1,77 @@
+#
+# CDDL HEADER START
+#
+# The contents of this file are subject to the terms of the
+# Common Development and Distribution License (the "License").
+# You may not use this file except in compliance with the License.
+#
+# You can obtain a copy of the license at usr/gnu/src/OPENSOLARIS.LICENSE
+# or http://www.opensolaris.org/os/licensing.
+# See the License for the specific language governing permissions
+# and limitations under the License.
+#
+# When distributing Covered Code, include this CDDL HEADER in each
+# file and include the License file at usr/gnu/src/OPENSOLARIS.LICENSE.
+# If applicable, add the following below this CDDL HEADER, with the
+# fields enclosed by brackets "[]" replaced with your own identifying
+# information: Portions Copyright [yyyy] [name of copyright owner]
+#
+# CDDL HEADER END
+#
+# Copyright 2012 Nexenta Systems, Inc.  All rights reserved.
+# Copyright 2011 EveryCity Ltd. All rights reserved.
+#
+
+<transform file path=usr/gnu.*/man/.+ -> default mangler.man.stability uncommitted>
+set name=pkg.fmri value=pkg:/library/gnu-libiconv@$(IPS_COMPONENT_VERSION),$(BUILD_VERSION)
+set name=pkg.summary value="GNU libiconv - library used to convert between different character encodings"
+set name=info.upstream_url value="http://www.gnu.org/software/libiconv/"
+set name=info.source_url value=$(COMPONENT_ARCHIVE_URL)
+set name=org.opensolaris.consolidation value=$(CONSOLIDATION)
+
+license libiconv.license license="GPLv3"
+
+dir  path=usr
+dir  path=usr/gnu
+dir  path=usr/gnu/bin
+dir  path=usr/gnu/bin/$(MACH64)
+dir  path=usr/gnu/include
+dir  path=usr/gnu/lib
+dir  path=usr/gnu/lib/$(MACH64)
+dir  path=usr/gnu/share
+dir  path=usr/gnu/share/doc
+dir  path=usr/gnu/share/doc/libiconv
+dir  path=usr/gnu/share/man
+dir  path=usr/gnu/share/man/man1
+dir  path=usr/gnu/share/man/man3
+file path=usr/gnu/bin/$(MACH64)/iconv
+file path=usr/gnu/bin/iconv
+file path=usr/gnu/include/iconv.h
+file path=usr/gnu/include/libcharset.h
+file path=usr/gnu/include/localcharset.h
+file path=usr/gnu/lib/$(MACH64)/libcharset.so.1.0.0
+file path=usr/gnu/lib/$(MACH64)/libiconv.so.2.5.0
+file path=usr/gnu/lib/$(MACH64)/preloadable_libiconv.so
+file path=usr/gnu/lib/libcharset.so.1.0.0
+file path=usr/gnu/lib/libiconv.so.2.5.0
+file path=usr/gnu/lib/preloadable_libiconv.so
+file path=usr/gnu/share/doc/libiconv/iconv.1.html
+file path=usr/gnu/share/doc/libiconv/iconv.3.html
+file path=usr/gnu/share/doc/libiconv/iconv_close.3.html
+file path=usr/gnu/share/doc/libiconv/iconv_open.3.html
+file path=usr/gnu/share/doc/libiconv/iconv_open_into.3.html
+file path=usr/gnu/share/doc/libiconv/iconvctl.3.html
+file path=usr/gnu/share/man/man1/iconv.1
+file path=usr/gnu/share/man/man3/iconv.3
+file path=usr/gnu/share/man/man3/iconv_close.3
+file path=usr/gnu/share/man/man3/iconv_open.3
+file path=usr/gnu/share/man/man3/iconv_open_into.3
+file path=usr/gnu/share/man/man3/iconvctl.3
+link path=usr/gnu/lib/$(MACH64)/libcharset.so target=libcharset.so.1.0.0
+link path=usr/gnu/lib/$(MACH64)/libcharset.so.1 target=libcharset.so.1.0.0
+link path=usr/gnu/lib/$(MACH64)/libiconv.so target=libiconv.so.2.5.0
+link path=usr/gnu/lib/$(MACH64)/libiconv.so.2 target=libiconv.so.2.5.0
+link path=usr/gnu/lib/libcharset.so target=libcharset.so.1.0.0
+link path=usr/gnu/lib/libcharset.so.1 target=libcharset.so.1.0.0
+link path=usr/gnu/lib/libiconv.so target=libiconv.so.2.5.0
+link path=usr/gnu/lib/libiconv.so.2 target=libiconv.so.2.5.0
