@@ -1,0 +1,27 @@
+--- dpkg-1.16.4.3/scripts/Dpkg/Arch.pm.bak	2012-06-17 01:10:04.000000000 -0700
++++ dpkg-1.16.4.3/scripts/Dpkg/Arch.pm	2012-06-21 13:23:46.267914886 -0700
+@@ -252,7 +252,23 @@
+ 
+     return undef unless defined($abi) && defined($os) && defined($cpu) &&
+         exists($cputable{$cpu}) && exists($ostable{"$abi-$os"});
+-    return join("-", $cputable{$cpu}, $ostable{"$abi-$os"});
++    if ($os eq "solaris") {
++        my $gnu_cpu = $cputable{$cpu};
++        my $gnu_os = $ostable{"$abi-$os"};
++        my $vendor = "unknown";
++        $gnu_cpu =~ s/^i[3-7]86/i386/;
++        if ($cpu eq "i386" || $cpu eq "amd64") {
++            $vendor = "pc";
++        } elsif ($cpu eq "sparc" || $cpu eq "sparc64") {
++            $vendor = "sun";
++        }
++        my $version = `uname -r`;
++        chomp ($version);
++        $version =~ s/^5/2/;
++        return "$gnu_cpu-$vendor-$gnu_os$version";
++    } else {
++        return join("-", $cputable{$cpu}, $ostable{"$abi-$os"});
++    }
+ }
+ 
+ sub gnutriplet_to_debtriplet($)

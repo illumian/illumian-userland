@@ -1,0 +1,11 @@
+--- dpkg-1.16.4.3/src/help.c	2012-06-20 02:58:26.551085129 -0700
++++ dpkg-1.16.4.3/src/help.c.bak	2012-06-20 02:58:12.396257311 -0700
+@@ -89,7 +89,7 @@
+     TAR,
+     FIND,
+     BACKEND,
+-    "ldconfig",
++    "crle",
+ #if BUILD_START_STOP_DAEMON
+     "start-stop-daemon",
+ #endif

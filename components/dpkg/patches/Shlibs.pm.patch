@@ -1,0 +1,38 @@
+--- dpkg-1.16.4.3/scripts/Dpkg/Shlibs.pm.bak	2012-06-21 14:19:51.975029011 -0700
++++ dpkg-1.16.4.3/scripts/Dpkg/Shlibs.pm	2012-06-21 18:24:23.000053111 -0700
+@@ -32,9 +32,23 @@
+ use Dpkg::Arch qw(debarch_to_gnutriplet get_build_arch get_host_arch
+                   gnutriplet_to_multiarch debarch_to_multiarch);
+ 
+-use constant DEFAULT_LIBRARY_PATH =>
+-    qw(/lib /usr/lib /lib32 /usr/lib32 /lib64 /usr/lib64
+-       /emul/ia32-linux/lib /emul/ia32-linux/usr/lib);
++my $build_arch = get_build_arch();
++my $host_arch = get_host_arch();
++
++my @libdir;
++
++if ($build_arch eq "solaris-i386") {
++    @libdir = qw(/lib /usr/lib /lib/amd64 /usr/lib/amd64
++                 /usr/gnu/lib /usr/gnu/lib/amd64);
++} elsif ($host_arch eq "solaris-sparc") {
++    @libdir = qw(/lib /usr/lib /lib/sparcv9 /usr/lib/sparcv9
++                 /usr/gnu/lib /usr/gnu/lib/sparcv9);
++} else {
++    @libdir = qw(/lib /usr/lib /lib32 /usr/lib32 /lib64 /usr/lib64
++                 /emul/ia32-linux/lib /emul/ia32-linux/usr/lib);
++}
++
++use constant DEFAULT_LIBRARY_PATH => @libdir;
+ 
+ # Adjust set of directories to consider when we're in a situation of a
+ # cross-build or a build of a cross-compiler
+@@ -52,7 +66,7 @@
+     $multiarch = gnutriplet_to_multiarch($ENV{DEB_TARGET_GNU_TYPE});
+ }
+ # host for normal cross builds.
+-if (get_build_arch() ne get_host_arch()) {
++if ($build_arch ne $host_arch) {
+     $crossprefix = debarch_to_gnutriplet(get_host_arch());
+     $multiarch = debarch_to_multiarch(get_host_arch());
+ }

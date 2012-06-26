@@ -1,0 +1,61 @@
+#
+# CDDL HEADER START
+#
+# The contents of this file are subject to the terms of the
+# Common Development and Distribution License (the "License").
+# You may not use this file except in compliance with the License.
+#
+# You can obtain a copy of the license at usr/src/OPENSOLARIS.LICENSE
+# or http://www.opensolaris.org/os/licensing.
+# See the License for the specific language governing permissions
+# and limitations under the License.
+#
+# When distributing Covered Code, include this CDDL HEADER in each
+# file and include the License file at usr/src/OPENSOLARIS.LICENSE.
+# If applicable, add the following below this CDDL HEADER, with the
+# fields enclosed by brackets "[]" replaced with your own identifying
+# information: Portions Copyright [yyyy] [name of copyright owner]
+#
+# CDDL HEADER END
+#
+# Copyright 2012 Nexenta Systems, Inc.  All rights reserved.
+#
+
+set name=pkg.fmri value=pkg:/library/perl-5/dpkg@$(IPS_COMPONENT_VERSION),$(BUILD_VERSION)
+set name=pkg.description \
+    value="This package provides the perl modules used by the scripts\
+    in pkg:/developer/build/dpkg. They cover a wide range of functionalities.\
+    Among them there are the following modules:\
+    \
+    - Dpkg::Arch: manipulate Debian architecture information\
+    - Dpkg::BuildOptions: parse and manipulate DEB_BUILD_OPTIONS\
+    - Dpkg::Changelog: parse Debian changelogs\
+    - Dpkg::Checksums: generate and parse checksums\
+    - Dpkg::Compression::Process: wrapper around compression tools\
+    - Dpkg::Compression::FileHandle: transparently (de)compress files\
+    - Dpkg::Control: parse and manipulate Debian control information\
+    (.dsc, .changes, Packages/Sources entries, etc.)\
+    - Dpkg::Deps: parse and manipulate dependencies\
+    - Dpkg::ErrorHandling: common error functions\
+    - Dpkg::Index: collections of Dpkg::Control (Packages/Sources files for\
+    example)\
+    - Dpkg::IPC: spawn sub-processes and feed/retrieve data\
+    - Dpkg::Substvars: substitute variables in strings\
+    - Dpkg::Vendor: identify current distribution vendor\
+    - Dpkg::Version: parse and manipulate Debian package versions\
+    \
+    All the packages listed in Suggests or Recommends are used by some of the modules."
+
+set name=pkg.summary value="Dpkg perl modules"
+set name=info.classification \
+    value=org.opensolaris.category.2008:System/Packaging
+set name=org.opensolaris.consolidation value=$(CONSOLIDATION)
+
+license dpkg.license license=GPLv2
+
+depend fmri=pkg:/library/perl-5/dpkg-584 predicate=runtime/perl-584 \
+    type=conditional
+depend fmri=pkg:/library/perl-5/dpkg-510 predicate=runtime/perl-510 \
+    type=conditional
+depend fmri=pkg:/library/perl-5/dpkg-512 predicate=runtime/perl-512 \
+    type=conditional

@@ -1,0 +1,26 @@
+--- dpkg-1.16.4.3/lib/dpkg/dpkg.h.bak	2012-06-20 02:53:25.438901151 -0700
++++ dpkg-1.16.4.3/lib/dpkg/dpkg.h	2012-06-20 02:55:37.958472135 -0700
+@@ -93,7 +93,7 @@
+ #define IMPORTANTFMT      "%04d"
+ #define MAXUPDATES         250
+ 
+-#define DEFAULTSHELL        "sh"
++#define DEFAULTSHELL        "bash"
+ #define DEFAULTPAGER        "pager"
+ 
+ #define MD5HASHLEN           32
+@@ -108,10 +108,10 @@
+ #define DPKG		"dpkg"
+ #define DEBSIGVERIFY	"/usr/bin/debsig-verify"
+ 
+-#define TAR		"tar"
+-#define RM		"rm"
+-#define FIND		"find"
+-#define DIFF		"diff"
++#define TAR		"gtar"
++#define RM		"grm"
++#define FIND		"gfind"
++#define DIFF		"gdiff"
+ 
+ #define FIND_EXPRSTARTCHARS "-(),!"
+ 

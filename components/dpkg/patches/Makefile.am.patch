@@ -1,0 +1,13 @@
+diff --git a/man/Makefile.am b/man/Makefile.am
+index 735b581..9642533 100644
+--- a/man/Makefile.am
++++ b/man/Makefile.am
+@@ -73,7 +73,7 @@ PO4A_V = $(PO4A_V_$(V))
+ PO4A_V_ = $(PO4A_V_$(AM_DEFAULT_VERBOSITY))
+ PO4A_V_0 = @echo "  PO4A   $@";
+ 
+-PO4A_OPTS = --previous --srcdir $(srcdir) --destdir $(CURDIR) --no-backups
++PO4A_OPTS = --previous --variable srcdir=$(srcdir) --no-backups
+ 
+ all-local: all-local-@USE_PO4A@
+ 

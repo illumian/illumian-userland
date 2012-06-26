@@ -1,0 +1,11 @@
+--- dpkg-1.16.4.3/scripts/Dpkg/Compression.pm.bak	2012-06-24 02:35:59.335281842 -0700
++++ dpkg-1.16.4.3/scripts/Dpkg/Compression.pm	2012-06-24 02:36:30.955641299 -0700
+@@ -52,7 +52,7 @@
+ my $COMP = {
+     "gzip" => {
+ 	"file_ext" => "gz",
+-	"comp_prog" => [ "gzip", "--no-name", "--rsyncable" ],
++	"comp_prog" => [ "gzip", "--no-name" ],
+ 	"decomp_prog" => [ "gunzip" ],
+ 	"default_level" => 9,
+     },
