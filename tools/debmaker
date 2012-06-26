@@ -397,6 +397,17 @@ sub get_ips_version {
     }
 }
 
+sub get_ips_name {
+#    pkg:/web/browser/elinks@0.11.7,5.11-1.1
+# => pkg:/web/browser/elinks
+    my ($fmri) = @_;
+    if ($fmri =~ m,^(?:pkg:/)?([^@]+)(?:@.+)?$,) {
+        return "pkg:/$1";
+    } else {
+        fatal "Can't parse FMRI to get pkg name: `$fmri'";
+    }
+}
+
 sub get_pkg_section {
     my ($pkgname) = @_;
     if ($pkgname =~ m,^([^-@]+)-.*,) {
@@ -479,13 +490,20 @@ if (! -d $DEBS_DIR) {
     fatal "Not a directory: `$DEBS_DIR'"
 }
 
+# Parse all manifests before outputting anything so we can do things
+# like detect conflicts, add or rewrite dependencies, replaces, etc.
+my %manifest_objs = ();
+foreach my $manifest_file (@ARGV) {
+    $manifest_objs{$manifest_file} = read_manifest $manifest_file;
+}
+
 # Walk through all manifests
 # and collect files, symlinks, hardlink
 # mapping them to package names:
 if ($BOOTSTRAP) {
     blab "Bootstrap: collecting paths ...";
-    foreach my $manifest_file (@ARGV) {
-        my $manifest_data = read_manifest $manifest_file;
+    foreach my $manifest_file (keys %manifest_objs) {
+        my $manifest_data = $manifest_objs{$manifest_file};
         my $fmri = $$manifest_data{'pkg.fmri'};
         my @items = ();
         if (my @files = @{$$manifest_data{'file'}}) {
@@ -529,9 +547,9 @@ $changes{'Files'} = '';
 $changes{'Binary'} = '';
 
 
-foreach my $manifest_file (@ARGV) {
+foreach my $manifest_file (keys %manifest_objs) {
     blab "****** Manifest: `$manifest_file'";
-    my $manifest_data = read_manifest $manifest_file;
+    my $manifest_data = $manifest_objs{$manifest_file};
     my $fmri = $$manifest_data{'pkg.fmri'};
     my @provides = get_debpkg_names $fmri;
     my $debname = shift @provides; # main name (web-browser-elinks)
@@ -567,6 +585,21 @@ foreach my $manifest_file (@ARGV) {
     ) {
         $debsection = "metapackages";
     } else {
+        # Look for any renamed packages that this package might replace.
+        foreach my $md (values %manifest_objs) {
+            if (exists $$md{'pkg.renamed'}
+                && $$md{'pkg.renamed'} eq "true"
+            ) {
+                foreach my $dep (@{$$md{'depend'}}) {
+                    # We drop the versions and only compare the IPS names
+                    if (($$dep{'type'} eq "require" || $$dep{'type'} eq "origin")
+                        && get_ips_name($$dep{'fmri'}) eq get_ips_name($fmri)
+                    ) {
+                        push @replaces, get_ips_name($$md{'pkg.fmri'});
+                    }
+                }
+            }
+        }
         $debsection = get_pkg_section $debname;
     }
 
