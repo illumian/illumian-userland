@@ -39,8 +39,6 @@ include ../../make-rules/prep.mk
 include ../../make-rules/configure.mk
 include ../../make-rules/ips.mk
 
-COMPONENT_PREP_ACTION = ( cd $(@D) && $(AUTORECONF) -ivf )
-
 PKG_MACROS += IPS_PKG_NAME=$(IPS_PKG_NAME)
 
 # common targets

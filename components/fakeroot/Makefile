@@ -40,8 +40,7 @@ include ../../make-rules/prep.mk
 include ../../make-rules/configure.mk
 include ../../make-rules/ips.mk
 
-COMPONENT_PREP_ACTION = ( cd $(@D) && \
-	$(MKDIR) build-aux && $(AUTORECONF) -ivf )
+COMPONENT_PREP_ACTION = ( cd $(@D) && $(MKDIR) build-aux )
 
 # This should be added by default!
 $(BUILD_32):COMPONENT_BUILD_ARGS += CC="$(CC) -m32"

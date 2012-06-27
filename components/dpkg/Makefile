@@ -41,8 +41,6 @@ include $(WS_TOP)/make-rules/prep.mk
 include $(WS_TOP)/make-rules/configure.mk
 include $(WS_TOP)/make-rules/ips.mk
 
-COMPONENT_PREP_ACTION = ( cd $(@D) && $(AUTORECONF) -ivf )
-
 # Make sure dpkg uses ncurses (required for 'resizeterm')
 CURSES_LIBS = -L/usr/gnu/lib -R/usr/gnu/lib -lncurses
 

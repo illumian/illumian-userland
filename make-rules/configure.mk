@@ -104,9 +104,14 @@ $(BUILD_DIR_64)/.configured:	BITS=64
 
 CONFIGURE_ENV += $(CONFIGURE_ENV.$(BITS))
 
-# configure the unpacked source for building 32 and 64 bit version
 CONFIGURE_SCRIPT =	$(SOURCE_DIR)/configure
-$(BUILD_DIR)/%/.configured:	$(SOURCE_DIR)/.prep
+
+# try to generate a configure script if there isn't one 
+$(CONFIGURE_SCRIPT):
+	(cd $(@D) ; $(ENV) $(AUTORECONF) -ivf)
+
+# configure the unpacked source for building 32 and 64 bit version
+$(BUILD_DIR)/%/.configured:	$(SOURCE_DIR)/.prep $(CONFIGURE_SCRIPT)
 	($(RM) -rf $(@D) ; $(MKDIR) $(@D))
 	$(COMPONENT_PRE_CONFIGURE_ACTION)
 	(cd $(@D) ; $(ENV) $(CONFIGURE_ENV) $(CONFIG_SHELL) \
