@@ -27,7 +27,7 @@ _DEB_MK_ = deb.mk
 include $(WS_TOP)/make-rules/ips.mk
 
 DEBMAKER = $(WS_TOOLS)/debmaker
-DEBVERSION ?= $(BUILD_NUM).0
+DEBVERSION ?= $(BUILD_NUM).1
 
 # Where to find binaries
 # (like debian/tmp):
