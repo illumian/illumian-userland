@@ -211,7 +211,6 @@ link path=usr/sbin/update-alternatives target=../bin/update-alternatives
 
 license dpkg.license license=GPLv2
 
-depend fmri=pkg:/dpkg@1.1.2 type=exclude
 depend fmri=pkg:/system/zones type=require
 depend fmri=pkg:/shell/bash type=require
 depend fmri=pkg:/archiver/gnu/tar type=require

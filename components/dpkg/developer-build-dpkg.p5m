@@ -99,7 +99,9 @@ file path=usr/share/man/man5/deb.5
 
 license dpkg.license license=GPLv2
 
-depend fmri=pkg:/dpkg-dev@1.1.1 type=exclude
+depend fmri=pkg:/dpkg-dev@1.1.2 type=exclude
+depend fmri=pkg:/libdpkg-perl@1.1.2 type=exclude
+depend fmri=pkg:/library/dpkg/dev@1.1.2 type=exclude
 depend fmri=pkg:/package/dpkg type=require
 depend fmri=pkg:/library/perl-5/dpkg type=require
 depend fmri=pkg:/file/gnu/coreutils type=require
