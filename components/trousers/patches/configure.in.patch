@@ -1,5 +1,21 @@
 --- configure.in.orig	Thu Jan 28 13:56:20 2010
 +++ configure.in	Wed Mar  3 16:40:12 2010
+@@ -35,12 +35,12 @@
+ 
+ # Arch specific stuff
+ case $target in
+-        *ppc64* | *powerpc64* | *x86_64*)
+-		CFLAGS="$CFLAGS -m64"
+-		;;
+ 	*solaris*)
+ 		CFLAGS="$CFLAGS -DSOLARIS"
+ 		;;
++        *ppc64* | *powerpc64* | *x86_64*)
++		CFLAGS="$CFLAGS -m64"
++		;;
+         *)
+                 ;;
+ esac
 @@ -351,6 +351,7 @@
  
  AC_C_BIGENDIAN([AC_DEFINE(_BIG_ENDIAN, 1, [big-endian host])])
