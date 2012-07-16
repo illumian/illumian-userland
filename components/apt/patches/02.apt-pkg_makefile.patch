@@ -1,0 +1,13 @@
+Index: apt-0.9.2/apt-pkg/makefile
+===================================================================
+--- apt-0.9.2/apt-pkg/makefile
++++ apt-0.9.2/apt-pkg/makefile
+@@ -14,7 +14,7 @@ include ../buildlib/libversion.mak
+ LIBRARY=apt-pkg
+ MAJOR=$(LIBAPTPKG_MAJOR)
+ MINOR=$(LIBAPTPKG_RELEASE)
+-SLIBS=$(PTHREADLIB) $(INTLLIBS) -lutil -ldl
++SLIBS=$(PTHREADLIB) $(INTLLIBS) -ldl
+ ifeq ($(HAVE_ZLIB),yes)
+ SLIBS+= -lz
+ endif

@@ -1,0 +1,13 @@
+=== modified file 'doc/makefile'
+--- apt-0.9.4/doc/makefile	2012-05-20 16:37:14 +0000
++++ apt-0.9.4/doc/makefile	2012-07-14 18:15:27 +0000
+@@ -79,7 +79,7 @@
+ 
+ .PHONY: update-po po4a stats
+ 
+-ifdef PO4A
++ifdef PO4ANO
+ doc: po4a
+ 
+ update-po:
+

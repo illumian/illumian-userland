@@ -1,0 +1,13 @@
+Index: apt-0.9.2/cmdline/makefile
+===================================================================
+--- apt-0.9.2/cmdline/makefile
++++ apt-0.9.2/cmdline/makefile
+@@ -14,7 +14,7 @@ include $(PROGRAM_H)
+ 
+ # The apt-get program
+ PROGRAM=apt-get
+-SLIBS = -lapt-pkg -lutil $(INTLLIBS)
++SLIBS = -lapt-pkg $(INTLLIBS)
+ LIB_MAKES = apt-pkg/makefile
+ SOURCE = apt-get.cc acqprogress.cc
+ include $(PROGRAM_H)

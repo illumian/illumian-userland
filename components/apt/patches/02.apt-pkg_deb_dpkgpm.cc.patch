@@ -1,0 +1,19 @@
+Index: apt-0.9.2/apt-pkg/deb/dpkgpm.cc
+===================================================================
+--- apt-0.9.2/apt-pkg/deb/dpkgpm.cc
++++ apt-0.9.2/apt-pkg/deb/dpkgpm.cc
+@@ -41,7 +41,14 @@
+ #include <termios.h>
+ #include <unistd.h>
+ #include <sys/ioctl.h>
++#ifdef __sun
++#include "memrchr.h"
++#include "cfmakeraw.h"
++#include "openpty.h"
++typedef void (*sighandler_t) (int);
++#else
+ #include <pty.h>
++#endif
+ 
+ #include <apti18n.h>
+ 									/*}}}*/
