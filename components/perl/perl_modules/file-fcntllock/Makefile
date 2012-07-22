@@ -18,29 +18,32 @@
 #
 # CDDL HEADER END
 #
-# Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
-#
-include ../../../make-rules/shared-macros.mk
 
-COMPONENT_NAME=		DBI
-COMPONENT_VERSION=	1.58
+#
+# Copyright (c) 2012 Nexenta Systems, Inc. All rights reserved.
+#
+
+include ../../../../make-rules/shared-macros.mk
+
+COMPONENT_NAME=		File-FcntlLock
+COMPONENT_VERSION=	0.12
+COMPONENT_PROJECT_URL=	http://search.cpan.org/dist/File-FcntlLock/
 COMPONENT_SRC=		$(COMPONENT_NAME)-$(COMPONENT_VERSION)
 COMPONENT_ARCHIVE=	$(COMPONENT_SRC).tar.gz
-COMPONENT_ARCHIVE_HASH=	sha1:5f5861728c85b3998eb5a6db3703f46d0fc6faf1
-COMPONENT_ARCHIVE_URL=	http://backpan.perl.org/authors/id/T/TI/TIMB/$(COMPONENT_ARCHIVE)
-COMPONENT_PROJECT_URL=	http://search.cpan.org/~timb/DBI/
+COMPONENT_ARCHIVE_HASH=	sha256:a832e35bd949c12ab0dfdabd3ff04c3efc2b809713ef14d20a6d53e125cf81d8
+COMPONENT_ARCHIVE_URL=	http://search.cpan.org/CPAN/authors/id/J/JT/JTT/$(COMPONENT_ARCHIVE)
 
 include $(WS_TOP)/make-rules/prep.mk
-include $(WS_TOP)/make-rules/ips.mk
 include $(WS_TOP)/make-rules/makemaker.mk
+include $(WS_TOP)/make-rules/ips.mk
 
+# common targets
 build:		$(BUILD_32)
 
 install:	$(INSTALL_32)
 
-COMPONENT_TEST_TARGETS = test
-test:		$(TEST_32)
+test:		$(NO_TESTS)
 
-BUILD_PKG_DEPENDENCIES =        $(BUILD_TOOLS)
+BUILD_PKG_DEPENDENCIES =	$(BUILD_TOOLS)
 
 include $(WS_TOP)/make-rules/depend.mk

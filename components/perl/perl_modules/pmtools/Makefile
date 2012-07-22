@@ -20,18 +20,18 @@
 #
 
 #
-# Copyright (c) 2012 Nexenta Systems, Inc. All rights reserved.
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
+# Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
 
-include ../../../make-rules/shared-macros.mk
+include ../../../../make-rules/shared-macros.mk
 
-COMPONENT_NAME=		File-FcntlLock
-COMPONENT_VERSION=	0.12
-COMPONENT_PROJECT_URL=	http://search.cpan.org/dist/File-FcntlLock/
+COMPONENT_NAME=		pmtools
+COMPONENT_VERSION=	1.10
 COMPONENT_SRC=		$(COMPONENT_NAME)-$(COMPONENT_VERSION)
 COMPONENT_ARCHIVE=	$(COMPONENT_SRC).tar.gz
-COMPONENT_ARCHIVE_HASH=	sha256:a832e35bd949c12ab0dfdabd3ff04c3efc2b809713ef14d20a6d53e125cf81d8
-COMPONENT_ARCHIVE_URL=	http://search.cpan.org/CPAN/authors/id/J/JT/JTT/$(COMPONENT_ARCHIVE)
+COMPONENT_ARCHIVE_HASH=	sha1:9be28391ea83c47b6a6ffd9d2e6466cf86f33f57
+COMPONENT_ARCHIVE_URL=	http://search.cpan.org/CPAN/authors/id/M/ML/MLFISHER/$(COMPONENT_ARCHIVE)
 
 include $(WS_TOP)/make-rules/prep.mk
 include $(WS_TOP)/make-rules/makemaker.mk

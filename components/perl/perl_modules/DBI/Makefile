@@ -18,36 +18,30 @@
 #
 # CDDL HEADER END
 #
-
-#
+# Copyright (c) 2012 Nexenta Systems, Inc.  All rights reserved.
 # Copyright (c) 2011, Oracle and/or its affiliates. All rights reserved.
 #
+include ../../../../make-rules/shared-macros.mk
 
-include ../../../make-rules/shared-macros.mk
-
-COMPONENT_NAME=		Net-SSLeay
-COMPONENT_VERSION=	1.36
+COMPONENT_NAME=		DBI
+COMPONENT_VERSION=	1.58
 COMPONENT_SRC=		$(COMPONENT_NAME)-$(COMPONENT_VERSION)
 COMPONENT_ARCHIVE=	$(COMPONENT_SRC).tar.gz
-COMPONENT_PROJECT_URL=	http://search.cpan.org/dist/Net-SSLeay
-COMPONENT_ARCHIVE_HASH=	sha1:e8cfb6355a596471518356a29bfe53ab2011c685
-COMPONENT_ARCHIVE_URL=	http://search.cpan.org/CPAN/authors/id/F/FL/FLORA/$(COMPONENT_ARCHIVE)
+COMPONENT_ARCHIVE_HASH=	sha1:5f5861728c85b3998eb5a6db3703f46d0fc6faf1
+COMPONENT_ARCHIVE_URL=	http://backpan.perl.org/authors/id/T/TI/TIMB/$(COMPONENT_ARCHIVE)
+COMPONENT_PROJECT_URL=	http://search.cpan.org/~timb/DBI/
 
 include $(WS_TOP)/make-rules/prep.mk
-include $(WS_TOP)/make-rules/makemaker.mk
 include $(WS_TOP)/make-rules/ips.mk
+include $(WS_TOP)/make-rules/makemaker.mk
 
-# The component Makefile.PL file will ask some questions on whether we want
-# to run external tests, to which we want to answer with "n".
-COMPONENT_CONFIGURE_ENV += ; echo "n" |
-
-# common targets
 build:		$(BUILD_32)
 
 install:	$(INSTALL_32)
 
+COMPONENT_TEST_TARGETS = test
 test:		$(TEST_32)
 
-BUILD_PKG_DEPENDENCIES =	$(BUILD_TOOLS)
+BUILD_PKG_DEPENDENCIES =        $(BUILD_TOOLS)
 
 include $(WS_TOP)/make-rules/depend.mk
